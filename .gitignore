@@ -1,3 +1,4 @@
+# Session/System Specific Files
 .Rproj.user
 .Rhistory
 .RData
@@ -8,10 +9,15 @@
 .Ruserdata
 .Renviron
 
+# Subdirectories
 _targets/
 output/
 data/raw/*
 data/clean/*
 
+# Retain Subdirectories w/out files
 !data/raw/.gitkeep
 !data/clean/.gitkeep
+
+# Temporary
+README.md
