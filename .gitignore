@@ -7,3 +7,5 @@
 .Rapp.history
 .Ruserdata
 .Renviron
+_targets/
+output/
