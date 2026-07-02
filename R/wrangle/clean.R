@@ -1,7 +1,7 @@
 ####################################
-# Title: Clean NCES Data
+# Title: Clean Data
 # Author: Dantz Farrow
-# Last Modified: 07/01/2026
+# Last Modified: 07/02/2026
 ####################################
 
 clean_nces <- function(file) {
