@@ -42,10 +42,16 @@ list(
   # SEDA Clean:
   , tar_target(seda_file, "data/raw/seda_admindist_annual_cs_2025.1.csv", format = "file")
   , tar_target(seda_clean, clean_seda(seda_file))
+
+  # NCES + SEDA Merge
+  , tar_target(panel_frame, merge_left(nces_clean, seda_clean))
+  , tar_target(merged_panel, merge_inner(nces_clean, seda_clean))
+
+  # TODO: Transform Final Data Sets
 )
 
 ### Console Operations for Inspection & Troubleshooting
-# tar_make() - run pipeline
-# tar_read("object") - pull objects
 # tar_manifest(fields = command) - pull info on targets
 # tar_visnetwork() - plot dependency graph
+# tar_make() - run pipeline
+# tar_read("object") - pull out objects
