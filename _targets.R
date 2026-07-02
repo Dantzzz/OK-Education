@@ -44,5 +44,8 @@ list(
   , tar_target(seda_clean, clean_seda(seda_file))
 )
 
+### Console Operations for Inspection & Troubleshooting
 # tar_make() - run pipeline
-# tar_read("object") - pulls objects
+# tar_read("object") - pull objects
+# tar_manifest(fields = command) - pull info on targets
+# tar_visnetwork() - plot dependency graph
