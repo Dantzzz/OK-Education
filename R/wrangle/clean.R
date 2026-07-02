@@ -17,3 +17,13 @@ clean_nces <- function(file) {
     # drop unnecessary columns
     select(-state, -lea_charter)
 }
+
+clean_seda <- function(file) {
+  read_csv(file) %>%
+    filter(
+      stateabb == "OK",
+      subcat   == "all"
+    ) %>%
+    mutate(sedaadmin = as.character(sedaadmin)) %>%
+    select(sedaadmin, year, cs_mn_avg_ol, cs_mn_avg_ol_se)
+}
