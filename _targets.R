@@ -31,18 +31,19 @@ tar_source()
 # Build Pipeline Dependency Order:
 list(
 
-# --- Wrangle Stage
-  # NCES Load:
+# --- Wrangle
+  # NCES Load (R/wrangle/build.R):
   tar_target(nces_file, "data/raw/nces-raw.csv", format  = "file"), # "qs" # Efficient storage for general data objects.
   tar_target(nces_load, load_nces(nces_file))
   # SEDA Load:
   , tar_target(seda_file, "data/raw/seda_admindist_annual_cs_2025.1.csv", format = "file")
   , tar_target(seda_load, load_seda(seda_file))
 
-  # Create Panel
+  # Create Panel (R/wrangle/stage.R):
   , tar_target(panel, build_panel(nces_load, seda_load))
 
-  # TODO: Transform Final Data Sets
+  # Transform - Cross-Sectional for OLS
+  , tar_target(cross_section, collapse_cs(panel))
 )
 
 ### Console Operations for Inspection & Troubleshooting

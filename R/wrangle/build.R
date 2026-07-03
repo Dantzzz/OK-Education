@@ -13,7 +13,7 @@ load_nces <- function(file) {
     # enforce dtypes
     mutate(across(fips:district, as.character)) %>%
     mutate(across(enroll_0108:title_i, as.numeric)) %>%
-    select(-state, -lea_charter) # drop unnecessary cols
+    select(-state, -lea_charter, -operational_status) # drop unnecessary cols
 }
 
 load_seda <- function(file) {
