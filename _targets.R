@@ -2,6 +2,9 @@
 # Title: Targets Pipeline Definition
 # Author: Dantz Farrow
 # Last Modified: 07/02/2026
+# Description: Auto-generated Targets
+# script. Use to set packages, source
+# scripts, and configure pipeline operation.
 ####################################
 
 # Created by use_targets().
@@ -32,21 +35,23 @@ tar_source()
 list(
 
 # --- Wrangle
-  # NCES Load (R/wrangle/build.R):
-  tar_target(nces_file, "data/raw/nces-raw.csv", format  = "file"),
-  tar_target(nces_load, load_nces(nces_file))
+
+  #### NCES Load (R/wrangle/build.R):
+   tar_target(nces_file, "data/raw/nces-raw.csv", format  = "file"),
+   tar_target(nces_load, load_nces(nces_file))
   # SEDA Load:
-  , tar_target(seda_file, "data/raw/seda_admindist_annual_cs_2025.1.csv", format = "file")
-  , tar_target(seda_load, load_seda(seda_file))
+   , tar_target(seda_file, "data/raw/seda_admindist_annual_cs_2025.1.csv", format = "file")
+   , tar_target(seda_load, load_seda(seda_file))
 
   # Create & Store Panel (R/wrangle/build.R):
-  , tar_target(panel, build_panel(nces_load, seda_load))
-  , tar_target(panel_file,
+   , tar_target(panel, build_panel(nces_load, seda_load))
+   , tar_target(panel_file,
                write_panel(panel, "data/transformed/panel.rds"),
                format = "file")
 
+
   # Transform - Cross-Sectional for OLS (R/wrangle/stage.R):
-  , tar_target(cross_section, collapse_cs(panel_file))
+  , tar_target(crs, collapse_cs(panel))
 )
 
 ### Console Operations for Inspection & Troubleshooting

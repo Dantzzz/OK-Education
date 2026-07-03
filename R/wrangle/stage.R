@@ -1,17 +1,25 @@
 ####################################
-# Title: Cross-Sectional Collapse
+# Title: Stage Data Sets for Analysis
 # Author: Dantz Farrow
-# Last Modified: 07/02/2026
+# Last Modified: 07/03/2026
+# Description: Contains functions for
+# staging data for time-series and
+# cross-sectional analysis
 ####################################
+
+# --- Time-Series Staging ---
 
 # --- Cross-Section Staging ---
 
-# feature selection
+
 stage_cs <- function(x){
   x %>%
-    filter(!is.na(cs_mn_avg_ol)) %>% # transform to inner join
-    mutate(enroll_0912 = replace_na(enroll_0912, 0)) %>% # replace na in PK-8
-    mutate(total_enrollment = enroll_0108 + enroll_0912) %>% # sum enrollment
+    # reduce to inner join
+    filter(!is.na(cs_mn_avg_ol)) %>%
+    # replace na in PK-8
+    mutate(enroll_0912 = replace_na(enroll_0912, 0)) %>%
+    # sum enrollment in new col
+    mutate(total_enrollment = enroll_0108 + enroll_0912) %>%
     # drop features
     select(
       -locale_class, -lat, -lon, -enroll_0912,
@@ -23,10 +31,17 @@ stage_cs <- function(x){
       cs_score        = cs_mn_avg_ol,
       cs_score_se     = cs_mn_avg_ol_se,
       -year)
+  # NOTE:
+  # `stage_cs` is nested within `collapse_cs`.
+  # Edit stage for feature selection & removal
+  # Must retain fips, cs_score, cs_score_se, enroll_0108,
+  # and total_enrollment for `collapse_cs`.
+
 }
 
 collapse_cs <- function(x){
   x %>%
+    # defined above
     stage_cs() %>%
     group_by(fips) %>%
     summarise(

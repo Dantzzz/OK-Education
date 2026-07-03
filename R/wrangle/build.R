@@ -1,7 +1,11 @@
 ####################################
 # Title: Build Data Set
 # Author: Dantz Farrow
-# Last Modified: 07/02/2026
+# Last Modified: 07/03/2026
+# Description: This script contains functions
+# for loading, merging, and saving initial data set.
+# To begin here, download the SEDA data file inside data/raw/.
+# Otherwise... {}
 ####################################
 
 # -- Load
