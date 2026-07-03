@@ -13,7 +13,6 @@
 _targets/
 output/
 data/raw/*
-data/clean/*
 
 # Retain Subdirectories w/out files
 !data/raw/.gitkeep

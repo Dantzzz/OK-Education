@@ -4,7 +4,7 @@
 # Last Modified: 07/02/2026
 ####################################
 
-
+# -- Load
 load_nces <- function(file) {
   # replace en-dash (unicode) w/ NAs on load
   read_csv(file, na = c("", "NA", "\u2013")) %>%
@@ -26,7 +26,14 @@ load_seda <- function(file) {
     select(-sedaadminname, -fips, -stateabb, -subcat, -subgroup)
 }
 
-# -- Merge Data
+# -- Merge
 build_panel <- function(x, y) {
   left_join(x, y, by = c("fips" = "sedaadmin", "year"))
+}
+
+# -- Save
+write_panel <- function(data, path){
+  dir.create(dirname(path), recursive = T, showWarnings = T)
+  write_rds(data, path)
+  path
 }
